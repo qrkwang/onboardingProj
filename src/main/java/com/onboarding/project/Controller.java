@@ -8,7 +8,8 @@ import org.apache.camel.impl.DefaultCamelContext;
 
 
 
-public class ProducerController {
+public class Controller {
+
 
 
 

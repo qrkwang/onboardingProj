@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+message Device {
+	int64 deviceReading = "5";
+	string deviceID = "4321";
+	int64 deviceDatetime = "07092021"; 
+
+}

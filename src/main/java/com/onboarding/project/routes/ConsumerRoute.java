@@ -1,14 +1,20 @@
 package com.onboarding.project.routes;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ConsumerRoute extends RouteBuilder {
-    final private String TEST_EXCHANGE = "testExchange";
-    final private String TEST_QUEUE = "testQueue";
-    final private String TEST_ROUTING_KEY = "testRoutingKey";
+    @Value("${proj.exchange}")
+    private String TEST_EXCHANGE;
+
+    @Value("${proj.queue}")
+    private String TEST_QUEUE;
+
+    @Value("${proj.routingkey}")
+    private String TEST_ROUTING_KEY;
 
 
     @Override
@@ -18,10 +24,13 @@ public class ConsumerRoute extends RouteBuilder {
 //                PORT_NUM + "?queue=" +TEST_QUEUE + "?routingKey=" + TEST_ROUTING_KEY)
 //                .log("Received message - ${body}");
 //        from("rabbitmq:amq.direct?queue" = TEST_QUEUE + "?hostname=" + HOST_NAME + "?portNumber" + PORT_NUM);
-        from("rabbitmq:amq.direct?queue=" + TEST_QUEUE + "&routingKey=" + TEST_ROUTING_KEY + "&autoDelete=false")
-                .log("Received message - ${body}");
+
 //        from ("rabbitmq:amq.direct?queue=TEST_QUEUE&routingKey=TEST_ROUTING_KEY&autoDelete=false&hostname=localhost&portNumber=5672&username=guest&password=guest")
 //                .log("Received message - ${body}");
+
+        from("rabbitmq:amq.direct?queue=" + TEST_QUEUE + "&routingKey=" + TEST_ROUTING_KEY + "&autoDelete=false")
+                .log("Received message - ${body}");
+
 
     }
 

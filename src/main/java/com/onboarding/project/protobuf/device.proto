@@ -1,8 +1,29 @@
 syntax = "proto3";
 
 message Device {
-	int64 deviceReading = "5";
-	string deviceID = "4321";
-	int64 deviceDatetime = "07092021"; 
+	int64 deviceReading = 1;
+	string deviceID = 2;
+	int64 deviceDatetime =3;
+
+}
+
+message reply {
+
+	string requestID =1;
+	int64 deviceReading = 2;
+	int64 status = 3;
+}
+
+message request {
+	enum RequestType {
+		INITIALIZATION = 0;
+		CONTROL = 1;
+	}
+
+	string requestID = 1;
+	RequestType requestType = 2;
+	int64 deviceDatetime = 3;
+	int64 deviceID = 4;
+	int64 deviceReading =5;
 
 }

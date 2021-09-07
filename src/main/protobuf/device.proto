@@ -1,6 +1,7 @@
 syntax = "proto3";
 
-message Device {
+
+message DeviceReading {
 	int64 deviceReading = 1;
 	string deviceID = 2;
 	int64 deviceDatetime =3;
@@ -8,9 +9,8 @@ message Device {
 }
 
 message reply {
-
 	string requestID =1;
-	int64 deviceReading = 2;
+	DeviceReading deviceReading = 2;
 	int64 status = 3;
 }
 
@@ -24,6 +24,5 @@ message request {
 	RequestType requestType = 2;
 	int64 deviceDatetime = 3;
 	int64 deviceID = 4;
-	int64 deviceReading =5;
-
+	DeviceReading deviceReading =5;
 }

@@ -1,5 +1,7 @@
 package com.onboarding.project.routes;
 
+import com.onboarding.project.bean.DeviceBean;
+import com.onboarding.project.protobuf.Device;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -28,9 +30,26 @@ public class ConsumerRoute extends RouteBuilder {
 //        from ("rabbitmq:amq.direct?queue=TEST_QUEUE&routingKey=TEST_ROUTING_KEY&autoDelete=false&hostname=localhost&portNumber=5672&username=guest&password=guest")
 //                .log("Received message - ${body}");
 
+//        from("rabbitmq:amq.direct?queue=" + TEST_QUEUE + "&routingKey=" + TEST_ROUTING_KEY + "&autoDelete=false")
+//                .log("Received message - ${body}");
+//
         from("rabbitmq:amq.direct?queue=" + TEST_QUEUE + "&routingKey=" + TEST_ROUTING_KEY + "&autoDelete=false")
-                .log("Received message - ${body}");
+                .routeId("Consumer Route")
+                .process(e->{
+                    e.getMessage().removeHeaders("*");
+                    byte[] data = e.getMessage().getBody(byte[].class);
+                    Device.DeviceReading incomingDeviceReading = Device.DeviceReading.parseFrom(data);
+                    DeviceBean.getInstance().processDeviceReading(incomingDeviceReading);
+                });
 
+//        from("rabbitmq:amq.direct?queue="+ TEST_QUEUE + "&routingKey=" + TEST_ROUTING_KEY + "&autoDelete=false")
+//                .routeId("Consumer Route")
+//                .process(e->{
+//                    e.getMessage().removeHeaders("*");
+//                    byte[] data = e.getMessage().getBody(byte[].class);
+//                    Device.DeviceReading incomingDeviceReading = Device.DeviceReading.parseFrom(data);
+//                    DeviceBean.getInstance().processDeviceReading(incomingDeviceReading);
+//                })              .log("Received message - ${body}");
 
     }
 

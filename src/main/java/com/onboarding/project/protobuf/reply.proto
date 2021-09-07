@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-message request {
-
-	string requestID =5;
-	deviceReading deviceReading;
-	int64 status = 5;
-
-}

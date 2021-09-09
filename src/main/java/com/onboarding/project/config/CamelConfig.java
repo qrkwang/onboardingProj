@@ -44,7 +44,6 @@ public class CamelConfig {
     protected String keyPWWeb;
 
 
-    public static final String RABBIT_URI = "rabbitmq:amq.direct?queue=%s&routingKey=%s&autoDelete=false";
 
     @Bean
     public ConnectionFactory rabbitConnectionFactory(){
